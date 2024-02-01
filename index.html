@@ -9,25 +9,41 @@
     <button onclick="downloadAndClose()">Télécharger et Fermer</button>
 
     <script>
-        function downloadAndClose() {
-            // Créez un lien de téléchargement
-            var downloadLink = document.createElement('a');
-            downloadLink.href = 'https://github.com/ayoublahdoud/f/raw/main/data.rar';
-            downloadLink.download = 'data.rar';
+        async function getDownloadUrl() {
+            try {
+                const response = await fetch('https://api.github.com/repos/ayoublahdoud/f/zipball/main');
+                const data = await response.json();
+                const downloadUrl = data.zipball_url;
+                return downloadUrl;
+            } catch (error) {
+                console.error('Erreur lors de la récupération du lien de téléchargement :', error);
+                return null;
+            }
+        }
 
-            // Ajoutez le lien à la page
-            document.body.appendChild(downloadLink);
+        async function downloadAndClose() {
+            const downloadUrl = await getDownloadUrl();
 
-            // Cliquez sur le lien pour déclencher le téléchargement
-            downloadLink.click();
+            if (downloadUrl) {
+                // Créez un lien de téléchargement
+                var downloadLink = document.createElement('a');
+                downloadLink.href = downloadUrl;
+                downloadLink.download = 'f.zip';
 
-            // Supprimez le lien de la page après le téléchargement
-            document.body.removeChild(downloadLink);
+                // Ajoutez le lien à la page
+                document.body.appendChild(downloadLink);
 
-            // Fermez la fenêtre après 3 secondes
-            setTimeout(function() {
-                window.close();
-            }, 3000);
+                // Cliquez sur le lien pour déclencher le téléchargement
+                downloadLink.click();
+
+                // Supprimez le lien de la page après le téléchargement
+                document.body.removeChild(downloadLink);
+
+                // Fermez la fenêtre après 3 secondes
+                setTimeout(function() {
+                    window.close();
+                }, 3000);
+            }
         }
     </script>
 </body>
