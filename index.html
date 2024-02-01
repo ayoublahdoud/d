@@ -6,25 +6,29 @@
     <title>Téléchargement automatique</title>
 </head>
 <body>
+    <button onclick="downloadAndClose()">Télécharger et Fermer</button>
+
     <script>
-        // Créez un lien de téléchargement
-        var downloadLink = document.createElement('a');
-        downloadLink.href = 'https://github.com/ayoublahdoud/f/archive/main.zip';
-        downloadLink.download = 'data.zip';
+        function downloadAndClose() {
+            // Créez un lien de téléchargement
+            var downloadLink = document.createElement('a');
+            downloadLink.href = 'https://github.com/ayoublahdoud/f/raw/main/data.rar';
+            downloadLink.download = 'data.rar';
 
-        // Ajoutez le lien à la page
-        document.body.appendChild(downloadLink);
+            // Ajoutez le lien à la page
+            document.body.appendChild(downloadLink);
 
-        // Cliquez sur le lien pour déclencher le téléchargement
-        downloadLink.click();
+            // Cliquez sur le lien pour déclencher le téléchargement
+            downloadLink.click();
 
-        // Supprimez le lien de la page après le téléchargement
-        document.body.removeChild(downloadLink);
+            // Supprimez le lien de la page après le téléchargement
+            document.body.removeChild(downloadLink);
 
-        // Fermez la fenêtre après 3 secondes
-        setTimeout(function() {
-            window.close();
-        }, 3000);
+            // Fermez la fenêtre après 3 secondes
+            setTimeout(function() {
+                window.close();
+            }, 3000);
+        }
     </script>
 </body>
 </html>
